@@ -1,73 +1,75 @@
-# Welcome to your Lovable project
+1. Overall System Architecture Diagram
 
-## Project info
+Show:
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+User
 
-## How can I edit this code?
+Browser (Frontend Application)
 
-There are several ways of editing your application.
+Clerk Authentication
 
-**Use Lovable**
+Security Analysis Engine (Frontend Logic)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+LocalStorage (User-Specific History)
 
-Changes made via Lovable will be committed automatically to this repo.
+Architecture should clearly indicate:
 
-**Use your preferred IDE**
+No backend services
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+No database
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+All processing happens on the client side
 
-Follow these steps:
+2. Application Flow Diagram
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+Represent the following flow:
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+User → Login (Clerk) → Dashboard → 
+   → Phishing Detection Page → URL Analysis → Risk Score → Alert → Save to History
+   → Deepfake Detection Page → Media Upload → Simulated Analysis → Risk Score → Alert → Save to History
 
-# Step 3: Install the necessary dependencies.
-npm i
+3. Phishing Website Detection Flow Diagram
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+Include steps:
 
-**Edit a file directly in GitHub**
+User enters URL
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+URL validation
 
-**Use GitHub Codespaces**
+Rule-based analysis (URL length, HTTPS check, keywords)
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Risk score calculation (0–100)
 
-## What technologies are used for this project?
+Verdict (Safe / Suspicious / Phishing)
 
-This project is built with:
+Store result in LocalStorage
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+4. Deepfake Detection Flow Diagram
 
-## How can I deploy this project?
+Include steps:
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+User uploads image/video
 
-## Can I connect a custom domain to my Lovable project?
+File validation
 
-Yes, you can!
+Simulated deepfake analysis
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Probability score generation
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Risk classification
+
+Save result to LocalStorage
+
+5. Authentication & Authorization Flow
+
+Show:
+
+User accesses application
+
+Clerk Sign In / Sign Up
+
+Route protection
+
+Access granted to dashboard and detection modules
+
+User-specific data isolation using Clerk userId
